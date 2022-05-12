@@ -1,25 +1,62 @@
-import { Component } from '@angular/core';
-import { FormBuilder} from '@angular/forms';
+import { Component, OnInit } from '@angular/core';
+import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { HttpService } from '../services/http.service';
 
 @Component({
   selector: 'app-product-list',
   templateUrl: './product-list.component.html',
   styleUrls: ['./product-list.component.css']
 })
-export class ProductListComponent {
+export class ProductListComponent implements OnInit {
 
-  constructor(private fb: FormBuilder) {}
+  constructor(private fb: FormBuilder, private hs: HttpService) {}
 
-  profileForm = this.fb.group({
-    firstName: [''],
-    lastName: [''],
-    address: [''],
-    dob: [''],
-    gender: ['']
+  ngOnInit(): void {
+    //  this.hs.getEmployees().subscribe((res) =>{
+    //     console.log(res)
+    //  })
+  }
+
+  employeeForm: FormGroup = this.fb.group({
+    firstname: [null, [Validators.required, Validators.minLength(10)]],
+    lastname: [null, [Validators.required, Validators.minLength(10)]],
+    hired: [null, [Validators.required]],
+    address: [null],
+    country: [null],
+    gender: [null],
   });
 
+  educationForm: FormGroup = this.fb.group({
+    education: this.fb.array([]),
+  });
+
+  newEducation(): FormGroup{
+    return this.fb.group({
+      schoolName: [null],
+      start: [null],
+      end: [null],
+      degree: [null],
+      gpa: [null]
+    })
+  }
+
+  edu() : FormArray {
+
+    return this.educationForm.get("education") as FormArray
+  }
+
+  addEdu() {
+
+    this.edu().push(this.newEducation());
+  }
+
+  removeEdu(i:number) {
+
+    this.edu().removeAt(i);
+  }
+
   onSubmit() {
-   console.log('form data is ', this.profileForm.value);
+    console.log(this.educationForm.value, this.employeeForm.value);
   }
 }
 

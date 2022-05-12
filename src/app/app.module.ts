@@ -8,6 +8,14 @@ import { TopBarComponent } from './top-bar/top-bar.component';
 import { ProductListComponent } from './product-list/product-list.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgMaterialModule } from './ng-material.module';
+import { DrugComponent } from './drug/drug.component';
+import { AppRoutingModule } from './app-routing.module';
+import { HomeComponent } from './home/home.component';
+import { SensorsComponent } from './sensors/sensors.component';
+import { RepairsComponent } from './repairs/repairs.component';
+import { HttpClientModule } from '@angular/common/http';
+import { AccessComponent } from './access/access.component';
+import { AccessRightsComponent } from './access-rights/access-rights.component';
 
 @NgModule({
   imports: [
@@ -15,15 +23,23 @@ import { NgMaterialModule } from './ng-material.module';
     FormsModule,
     ReactiveFormsModule,
     NgMaterialModule,
+    HttpClientModule,
     RouterModule.forRoot([
       { path: '', component: ProductListComponent },
     ]),
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    AppRoutingModule
   ],
   declarations: [
     AppComponent,
     TopBarComponent,
-    ProductListComponent
+    ProductListComponent,
+    DrugComponent,
+    HomeComponent,
+    SensorsComponent,
+    RepairsComponent,
+    AccessComponent,
+    AccessRightsComponent
   ],
   bootstrap: [
     AppComponent
