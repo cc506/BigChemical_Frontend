@@ -1,12 +1,22 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { HttpService } from '../services/http.service';
 
 @Component({
   selector: 'app-top-bar',
   templateUrl: './top-bar.component.html',
   styleUrls: ['./top-bar.component.css']
 })
-export class TopBarComponent {
+export class TopBarComponent implements OnInit {
+  loggedIn: Boolean = false;
 
+  constructor(private hs: HttpService) {}
+
+  ngOnInit(): void {
+    if(this.hs.checkAuth()){
+      this.loggedIn = true;
+    }
+  }
+  
 }
 
 

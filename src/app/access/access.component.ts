@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { HttpService } from '../services/http.service';
 
 @Component({
   selector: 'app-access',
@@ -7,9 +9,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AccessComponent implements OnInit {
 
-  constructor() { }
+  constructor(private hs: HttpService, private router: Router) { }
 
   ngOnInit(): void {
+  }
+
+  goToLoginPage(){
+    this.hs.removeEmployeeID();
+    this.router.navigate(['generate-id'], { replaceUrl: true });
   }
 
 }

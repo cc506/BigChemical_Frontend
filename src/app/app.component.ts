@@ -13,7 +13,7 @@ export class AppComponent implements OnInit{
   constructor(private router: Router, private hs: HttpService){}
 
   ngOnInit(): void {
-      if(this.router.url.startsWith('/home')){
+      if(this.router.url.startsWith('')){
         if(this.hs.checkAuth()){
           console.log("SUCCESS")
         } else {

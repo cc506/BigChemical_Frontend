@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { HttpService } from '../services/http.service';
 
 @Component({
@@ -11,7 +12,7 @@ export class ProductListComponent implements OnInit {
   employeeForm!: FormGroup;
   educationForm!: FormGroup;
 
-  constructor(private fb: FormBuilder, private hs: HttpService) {
+  constructor(private fb: FormBuilder, private hs: HttpService, private router: Router) {
     
   }
 
@@ -22,6 +23,11 @@ export class ProductListComponent implements OnInit {
     //     console.log(res)
     //  })
     this.initForms()
+  }
+
+  goToLoginPage(){
+    this.hs.removeEmployeeID();
+    this.router.navigate(['generate-id'], { replaceUrl: true });
   }
 
   initForms(){
