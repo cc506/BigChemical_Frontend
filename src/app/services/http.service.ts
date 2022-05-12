@@ -10,6 +10,27 @@ export class HttpService {
 
   constructor(private http: HttpClient) { }
 
+  setEmployeeID(id: string){
+    localStorage.setItem("employeeID", id)
+  }
+
+  getEmployeeID(){
+    return localStorage.getItem("employeeID")
+  }
+
+  removeEmployeeID(){
+    localStorage.removeItem("employeeID")
+  }
+
+  checkAuth(): Boolean{
+    if(this.getEmployeeID()){
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+
   getEmployees(id: string): Observable<any> {
     return this.http.get(`${environment.url}/employees/${id}`);
   }

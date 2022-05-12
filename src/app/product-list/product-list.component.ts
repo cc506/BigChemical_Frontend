@@ -8,27 +8,36 @@ import { HttpService } from '../services/http.service';
   styleUrls: ['./product-list.component.css']
 })
 export class ProductListComponent implements OnInit {
+  employeeForm!: FormGroup;
+  educationForm!: FormGroup;
 
-  constructor(private fb: FormBuilder, private hs: HttpService) {}
+  constructor(private fb: FormBuilder, private hs: HttpService) {
+    
+  }
+
+  
 
   ngOnInit(): void {
     //  this.hs.getEmployees().subscribe((res) =>{
     //     console.log(res)
     //  })
+    this.initForms()
   }
 
-  employeeForm: FormGroup = this.fb.group({
-    firstname: [null, [Validators.required, Validators.minLength(10)]],
-    lastname: [null, [Validators.required, Validators.minLength(10)]],
-    hired: [null, [Validators.required]],
-    address: [null],
-    country: [null],
-    gender: [null],
-  });
+  initForms(){
+    this.employeeForm= this.fb.group({
+      firstname: [null, [Validators.required, Validators.minLength(10)]],
+      lastname: [null, [Validators.required, Validators.minLength(10)]],
+      hired: [null, [Validators.required]],
+      address: [null],
+      country: [null],
+      gender: [null],
+    });
 
-  educationForm: FormGroup = this.fb.group({
-    education: this.fb.array([]),
-  });
+    this.educationForm = this.fb.group({
+      education: this.fb.array([]),
+    });
+  }
 
   newEducation(): FormGroup{
     return this.fb.group({

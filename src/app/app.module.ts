@@ -16,6 +16,7 @@ import { RepairsComponent } from './repairs/repairs.component';
 import { HttpClientModule } from '@angular/common/http';
 import { AccessComponent } from './access/access.component';
 import { AccessRightsComponent } from './access-rights/access-rights.component';
+import { GenerateIdComponent } from './generate-id/generate-id.component';
 
 @NgModule({
   imports: [
@@ -25,7 +26,7 @@ import { AccessRightsComponent } from './access-rights/access-rights.component';
     NgMaterialModule,
     HttpClientModule,
     RouterModule.forRoot([
-      { path: '', component: ProductListComponent },
+      { path: '', component: HomeComponent },
     ]),
     BrowserAnimationsModule,
     AppRoutingModule
@@ -39,7 +40,8 @@ import { AccessRightsComponent } from './access-rights/access-rights.component';
     SensorsComponent,
     RepairsComponent,
     AccessComponent,
-    AccessRightsComponent
+    AccessRightsComponent,
+    GenerateIdComponent
   ],
   bootstrap: [
     AppComponent
