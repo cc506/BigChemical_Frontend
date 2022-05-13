@@ -35,15 +35,20 @@ export class HttpService {
     return this.http.get(`${environment.url}/employees/${id}`);
   }
 
-  createEmployee(id: number, employee: any, address: any,  education: any): Observable<any> {
-    return this.http.post(`${environment.url}/employees/${id}`, {
+  createEmployee(employee: any, address: any,  education: any): Observable<any> {
+    return this.http.post(`${environment.url}/employees/`, {
       'employee': employee,  'address': address, 'education': education });
   }
 
-  updateEmployee(id: string, employee: string, education: string): Observable<any> {
+  updateEmployee(id: string, employee: any, address: any,  education: any): Observable<any> {
     return this.http.put(`${environment.url}/employees/${id}`, {
-      'employee': employee, 'education': education });
+      'employee': employee,  'address': address, 'education': education });
   }
+
+  deleteEmployee(id: string): Observable<any> {
+    return this.http.delete(`${environment.url}/employees/${id}`)
+  }
+
 
   getDrugs(id: string): Observable<any> {
     return this.http.get(`${environment.url}/employees/${id}/drug-test-results/`);
@@ -53,9 +58,8 @@ export class HttpService {
     return this.http.post(`${environment.url}/employees/${id}/drug-test-results`, drugForm);
   }
 
-  updateDrugs(id: string, employee: string, address: string, education: string): Observable<any> {
-    return this.http.put(`${environment.url}/employees/${id}`, {
-      'employee': employee, 'address': address, 'education': education });
+  updateDrugs(id: string, lab_id: string, drugForm: any): Observable<any> {
+    return this.http.put(`${environment.url}/employees/${id}/drug-test-results/${lab_id}`, drugForm);
   }
 
   getSensors(): Observable<any> {

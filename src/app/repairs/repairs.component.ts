@@ -27,9 +27,9 @@ export class RepairsComponent implements OnInit {
       });
   }
 
-  searchRepair(form_data: any){
-    console.log(form_data)
-    this.hs.getSensorRepairs('201').subscribe(
+  searchRepair(id: any){
+    console.log(id)
+    this.hs.getSensorRepairs(id).subscribe(
       data => {
         // console.log(data);
         this.data = data;

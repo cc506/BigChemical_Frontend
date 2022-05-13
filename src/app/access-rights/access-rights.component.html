@@ -9,7 +9,7 @@
       <a mat-button [routerLink]="'/drug'"> Activations</a>
       <a mat-button [routerLink]="'/sensors'"> Sensors </a>
       <a mat-button [routerLink]="'/repairs'"> Repairs </a>
-      <a mat-button [routerLink]="'/access'"> Accesses </a>
+      <a mat-button [routerLink]="'/access'"> Tracking </a>
       <a mat-button [routerLink]="'/access-rights'"> Access Rights </a>
     </div>
     <span class="menu-spacer"></span>
@@ -26,7 +26,7 @@
             <table class="table table-bordered">
               <tr>
                 <td>
-                  <h5>Employee Access Rights</h5>
+                  <h1>Employee Access Rights</h1>
                   <div>Employee: <b>{{employee.name}}</b></div>
                   <div>Security Clearance Level: {{employee.securityClearance}}</div>
                   <div>Title: {{employee.title}} <span style="padding-left:2em;">BadgeID: {{employee.badgeID}}</span></div>
@@ -43,7 +43,7 @@
         </tr>
         
         <tr *ngFor="let building of buildings;">
-          <h5>Building {{building}}</h5>
+          <h2>Building {{building}}</h2>
           <div class="table-responsive-lg">
             <table class="table table-striped table-hover">
               <thead class="thead-dark">
