@@ -8,9 +8,28 @@ import { HttpService } from '../services/http.service';
   styleUrls: ['./access-rights.component.css']
 })
 export class AccessRightsComponent implements OnInit {
+  show = true; // example: https://angular.io/api/common/NgIf
 
-  constructor(private hs: HttpService, private router: Router) { }
+  data: any = {};
+  access_rights: Array<any> = [];
+  employee: any;
+  buildings: any;
 
+
+  constructor(private hs: HttpService, private router: Router) { 
+    this.hs.getEmployeeAccessRights(this.hs.getEmployeeID()).subscribe(
+      data => {
+        this.data = data;
+        this.access_rights = this.data.access_rights;
+        this.employee = this.access_rights[0];
+        console.log(this.data); 
+        
+        this.buildings = [... new Set(this.access_rights.map(item => item.buildingID))];
+        console.log(this.buildings);
+      }
+    );
+  }
+  
   ngOnInit(): void {
   }
 

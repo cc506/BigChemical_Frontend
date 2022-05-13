@@ -14,7 +14,7 @@ export class HttpService {
     localStorage.setItem("employeeID", id)
   }
 
-  getEmployeeID(){
+  getEmployeeID(): any{
     return localStorage.getItem("employeeID")
   }
 
@@ -35,14 +35,14 @@ export class HttpService {
     return this.http.get(`${environment.url}/employees/${id}`);
   }
 
-  createEmployee(id: string, employee: string, address: string, education: string): Observable<any> {
+  createEmployee(id: string, employee: string, education: string): Observable<any> {
     return this.http.post(`${environment.url}/employees/${id}`, {
-      'employee': employee, 'address': address, 'education': education });
+      'employee_info': employee,  'employee_education': education });
   }
 
-  updateEmployee(id: string, employee: string, address: string, education: string): Observable<any> {
+  updateEmployee(id: string, employee: string, education: string): Observable<any> {
     return this.http.put(`${environment.url}/employees/${id}`, {
-      'employee': employee, 'address': address, 'education': education });
+      'employee': employee, 'education': education });
   }
 
   getDrugs(id: string): Observable<any> {
@@ -59,8 +59,21 @@ export class HttpService {
       'employee': employee, 'address': address, 'education': education });
   }
 
-  getEmployeeAccess(id: string): Observable<any> {
-    return this.http.get(`${environment.url}/employee-accesses/${id}`);
+  getSensors(): Observable<any> {
+    return this.http.get(`${environment.url}/sensors`);
+  }
+
+  getSensorRepairs(id: string){
+    return this.http.get(`${environment.url}/sensors-repairs/${id}`);
+  }
+
+  getEmployeeAccess(id: number, startDate: string, endDate: string): Observable<any> {
+    let url = `${environment.url}/tracking-log/`+ `${id}` + '?startDate=' + `${startDate}` + '&endDate=' + `${endDate}`
+    return this.http.get(url);
+  }
+
+  getActivations(): Observable<any> {
+    return this.http.get(`${environment.url}/sensor-activations`);
   }
 
   getEmployeeAccessRights(id: string): Observable<any> {

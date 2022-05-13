@@ -6,7 +6,7 @@
     <span class="menu-spacer"></span>
     <div>
       <a mat-button [routerLink]="'/employee'"> Employees </a>
-      <a mat-button [routerLink]="'/drug'"> Drug Tests</a>
+      <a mat-button [routerLink]="'/drug'"> Activations</a>
       <a mat-button [routerLink]="'/sensors'"> Sensors </a>
       <a mat-button [routerLink]="'/repairs'"> Repairs </a>
       <a mat-button [routerLink]="'/access'"> Accesses </a>
@@ -19,4 +19,41 @@
   </mat-toolbar-row>
 </mat-toolbar>
 
-<p>repairs works!</p>
+<mat-tab-group style="margin: auto;">
+  <mat-tab label="Tables">
+    <mat-card>
+      <ng-container *ngIf="sensor_repairs">
+        <table class="table table-striped table-hover">
+          <thead class="thead-dark">
+            <tr style="background-color:lightyellow">
+              <th scope="col">#</th>
+              <th scope="col">SensorID</th>
+              <th scope="col">Date Down</th>
+              <th scope="col">Date Restored</th>
+              <th scope="col">Technician</th>
+              <th scope="col">Cause</th>
+              <th scope="col">Repair</th>
+            </tr>
+          </thead>
+        
+          <tbody>
+            <ng-container *ngFor="let repair of sensor_repairs; index as i;">
+              <tr>
+                <td>{{i+1}}</td>
+                <td>{{repair.sensorID}}</td>
+                <td>{{repair.dateDown}}</td>
+                <td>{{repair.dateRestored}}</td>
+                <td>{{repair.technician_name}}</td>
+                <td>{{repair.cause}}</td>
+                <td>{{repair.repair}}</td>
+              </tr>
+            </ng-container>
+          </tbody>
+        </table>
+      </ng-container>
+    </mat-card>
+  </mat-tab>
+  <mat-tab label="Add Repair">
+
+  </mat-tab>
+</mat-tab-group>

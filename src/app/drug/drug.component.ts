@@ -10,8 +10,17 @@ import { HttpService } from '../services/http.service';
 export class DrugComponent implements OnInit {
 
   constructor(private hs: HttpService, private router: Router) { }
+  data: any;
+  sensor_activations: any;
 
   ngOnInit(): void {
+    this.hs.getActivations().subscribe(
+      data => {
+        this.data = data;
+        this.sensor_activations = this.data.sensor_activations;
+        console.log(this.data);
+      }
+    )
   }
 
   goToLoginPage(){

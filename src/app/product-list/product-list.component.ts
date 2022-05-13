@@ -11,18 +11,21 @@ import { HttpService } from '../services/http.service';
 export class ProductListComponent implements OnInit {
   employeeForm!: FormGroup;
   educationForm!: FormGroup;
+  public isAddMode!: boolean;
+
+  employee: any;
+  education: any;
+  drug: any;
 
   constructor(private fb: FormBuilder, private hs: HttpService, private router: Router) {
     
   }
 
-  
-
   ngOnInit(): void {
-    //  this.hs.getEmployees().subscribe((res) =>{
-    //     console.log(res)
-    //  })
+    this.isAddMode = false;
+    console.log(this.isAddMode)
     this.initForms()
+    this.initTables()
   }
 
   goToLoginPage(){
@@ -30,28 +33,53 @@ export class ProductListComponent implements OnInit {
     this.router.navigate(['generate-id'], { replaceUrl: true });
   }
 
+  initTables(){
+     this.hs.getEmployees(this.hs.getEmployeeID()).subscribe((res) =>{
+        this.employee = res['employee_info']
+        this.education = res['employee_education']
+     })
+     this.hs.getDrugs(this.hs.getEmployeeID()).subscribe(
+      res =>
+        this.drug = res['drug_test_results']
+    )
+  }
+
   initForms(){
     this.employeeForm= this.fb.group({
-      firstname: [null, [Validators.required, Validators.minLength(10)]],
-      lastname: [null, [Validators.required, Validators.minLength(10)]],
-      hired: [null, [Validators.required]],
-      address: [null],
-      country: [null],
-      gender: [null],
+      employeeID: [this.hs.getEmployeeID()],
+      name: [null, [Validators.required, Validators.minLength(10)]],
+      taxpayer_id: [null, [Validators.required, Validators.minLength(10)]],
+      date_hired: [null, [Validators.required]],
+      department: [null, [Validators.required]],
+      address: [null, [Validators.required]],
+      city: [null, [Validators.required]],
+      state: [null, [Validators.required]],
+      zip: [null, [Validators.required]],
+      phone: [null, [Validators.required]],
+      supervisor: [null, [Validators.required]],
     });
 
     this.educationForm = this.fb.group({
       education: this.fb.array([]),
     });
+
+    if (!this.isAddMode) {
+      this.hs.getEmployees(this.hs.getEmployeeID()).subscribe((res) =>{
+        this.employeeForm.patchValue(res['employee_info']);
+        this.educationForm.patchValue(res['employee_education']);
+        console.log(this.isAddMode)
+     })
+  }
   }
 
   newEducation(): FormGroup{
     return this.fb.group({
-      schoolName: [null],
-      start: [null],
-      end: [null],
-      degree: [null],
-      gpa: [null]
+      employeeID: [this.hs.getEmployeeID()],
+      degree_name: [null],
+      school_name: [null],
+      startDate: [null],
+      endDate: [null],
+      GPA: [null]
     })
   }
 
@@ -72,6 +100,14 @@ export class ProductListComponent implements OnInit {
 
   onSubmit() {
     console.log(this.educationForm.value, this.employeeForm.value);
+    
+    if (this.isAddMode) {
+      this.hs.createEmployee(this.hs.getEmployeeID(),this.educationForm.value, this.employeeForm.value).subscribe();
+  } else {
+      this.hs.updateEmployee(this.hs.getEmployeeID(),this.educationForm.value, this.employeeForm.value).subscribe();
+  }
+
+   
   }
 }
 

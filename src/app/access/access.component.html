@@ -6,7 +6,7 @@
     <span class="menu-spacer"></span>
     <div>
       <a mat-button [routerLink]="'/employee'"> Employees </a>
-      <a mat-button [routerLink]="'/drug'"> Drug Tests</a>
+      <a mat-button [routerLink]="'/drug'"> Activations</a>
       <a mat-button [routerLink]="'/sensors'"> Sensors </a>
       <a mat-button [routerLink]="'/repairs'"> Repairs </a>
       <a mat-button [routerLink]="'/access'"> Accesses </a>
@@ -19,4 +19,66 @@
   </mat-toolbar-row>
 </mat-toolbar>
 
-<p>access works!</p>
+
+    <mat-card>
+      <table class="table table-bordered">
+        <tr>
+          <ng-container *ngIf="employee_accesses[0]">
+            <table class="table table-bordered">
+              <tr>
+                <td colspan="3" style="width:100%">
+                  <h5 style="text-align:center;">Tracking Log</h5>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  <div>Employee: <b>{{employee_accesses[0].name}}</b></div>
+                  <div>Office: {{office_info.officeID}}
+                    <span style="padding-left:3em;">Phone: {{office_info.phone}}</span>
+                    <span style="padding-left:3em;">Cell Phone: {{office_info.cellPhone}}</span>
+                  </div>
+                </td>
+                <td>
+                  <div>Start</div>
+                  <div>{{startDate}}</div>
+                </td>
+                <td>
+                  <div>End</div>
+                  <div>{{endDate}}</div>
+                </td>
+              </tr>
+            </table>
+          </ng-container>
+        </tr>
+      
+        <tr>
+          <div class="table-responsive-lg">
+            <table class="table table-striped table-hover">
+              <thead class="thead-dark">
+                <tr style="background-color:lightyellow">
+                  <th scope="col">#</th>
+                  <th scope="col">Time-In</th>
+                  <th scope="col">Location</th>
+                  <th scope="col">Time-Out</th>
+                  <th scope="col">Door</th>
+                </tr>
+              </thead>
+      
+              <tbody>
+                <ng-container *ngFor="let row of tracking_log; index as i;">
+                  <tr>
+                    <td>{{i+1}}</td>
+                    <td>{{row.time_in}}</td>
+                    <td>{{row.location}}</td>
+                    <td>{{row.time_out}}</td>
+                    <td>{{row.door}}</td>
+                  </tr>
+                </ng-container>
+              </tbody>
+            </table>
+            <br>
+          </div>
+        </tr>
+      </table>
+    </mat-card>
+

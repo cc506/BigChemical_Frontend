@@ -8,10 +8,16 @@ import { HttpService } from '../services/http.service';
   styleUrls: ['./repairs.component.css']
 })
 export class RepairsComponent implements OnInit {
+  sensor_repairs: any;
 
   constructor(private hs: HttpService, private router: Router) { }
 
   ngOnInit(): void {
+    this.hs.getSensorRepairs('202').subscribe(
+      res => {
+        // this.sensor_repairs = res['sensor_repairs']
+        // console.log(res['sensor_repairs'])
+      })
   }
 
   goToLoginPage(){

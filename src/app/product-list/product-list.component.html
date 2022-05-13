@@ -6,7 +6,7 @@
     <span class="menu-spacer"></span>
     <div>
       <a mat-button [routerLink]="'/employee'"> Employees </a>
-      <a mat-button [routerLink]="'/drug'"> Drug Tests</a>
+      <a mat-button [routerLink]="'/drug'"> Activations</a>
       <a mat-button [routerLink]="'/sensors'"> Sensors </a>
       <a mat-button [routerLink]="'/repairs'"> Repairs </a>
       <a mat-button [routerLink]="'/access'"> Accesses </a>
@@ -19,164 +19,422 @@
   </mat-toolbar-row>
 </mat-toolbar>
 
-<mat-card style="margin-left: 2%; margin-right: 2%; margin-top: 2%">
-    <mat-card-header>
-      <mat-card-title>Employee Form</mat-card-title>
-    </mat-card-header>
-    <mat-card-content>
+<mat-tab-group style="margin: auto;">
 
-      <mat-stepper orientation="vertical" [linear]="false" #stepper>
-        <mat-step [stepControl]="employeeForm">
-          <form [formGroup]="employeeForm" class="form-container" (ngSubmit)="onSubmit()">
-            <ng-template matStepLabel>Employee Information</ng-template>
-            <div fxLayout="row" fxLayout.xs="column">
-              <div div fxFlex="55" class="sec1" fxFlex.xs="25" fxFlexFill>
-                <mat-form-field class="full-width" appearance="legacy">
-                  <mat-label>First Name</mat-label>
-                  <input matInput formControlName="firstname" maxlength="10" placeholder="Ex. John">
-                </mat-form-field>
-              </div>
-              <div div fxFlex="55" class="sec2" fxFlex.xs="25">
-                <mat-form-field class="full-width" appearance="legacy">
-                  <mat-label>Last Name</mat-label>
-                  <input matInput formControlName="lastname" maxlength="10" placeholder="Ex. John">
-                </mat-form-field>
-              </div>
-            </div>
-
-            <div fxLayout="row" fxLayout.xs="column">
-              <div div fxFlex="55" class="sec1" fxFlex.xs="50" fxFlexFill>
-                <mat-form-field class="full-width" appearance="legacy">
-                  <mat-label>Internal ID</mat-label>
-                  <input matInput maxlength="10" placeholder="Ex. John">
-                </mat-form-field>
-              </div>
-              <div div fxFlex="55" class="sec2" fxFlex.xs="50">
-                <mat-form-field class="full-width" appearance="legacy">
-                  <mat-label>Taxpayer ID</mat-label>
-                  <input matInput maxlength="10" placeholder="Ex. John">
-                </mat-form-field>
-              </div>
-            </div>
-            
-            <div fxLayout="row" fxLayout.xs="column">
-              <div div fxFlex="55" class="sec1" fxFlex.xs="25" fxFlexFill>
-                <mat-form-field class="full-width" appearance="legacy">
-                  <mat-label>Supervisor</mat-label>
-                  <input matInput maxlength="10" placeholder="123 ABC Street">
-                </mat-form-field>
-              </div>
-              <div div fxFlex="55" class="sec2" fxFlex.xs="25">
-                <mat-form-field style="width: 98%" appearance="fill">
-                  <mat-label>Date Hired</mat-label>
-                  <input formControlName="hired" matInput [matDatepicker]="picker">
-                  <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                  <mat-datepicker #picker></mat-datepicker>
-                </mat-form-field>
-              </div>
-            </div>
-
-            <div fxLayout="row" fxLayout.xs="column">
-              <div div fxFlex="55" class="sec1" fxFlex.xs="25" fxFlexFill>
-                <mat-form-field class="full-width" appearance="legacy">
-                  <mat-label>Address</mat-label>
-                  <input matInput maxlength="10" placeholder="123 ABC Street">
-                </mat-form-field>
-              </div>
-              <div div fxFlex="55" class="sec2" fxFlex.xs="25">
-                <mat-form-field class="full-width" appearance="legacy">
-                  <mat-label>Phone #</mat-label>
-                  <input matInput maxlength="10" placeholder="1234567890">
-                </mat-form-field>
-              </div>
-            </div>
-
-            <div fxLayout="row" fxLayoutAlign="center center">
-              <div div fxFlex="33" class="sec2" fxFlex.xs="28">
-                <mat-form-field class="full-width" appearance="legacy">
-                <mat-label>City</mat-label>
-                  <input matInput maxlength="10" placeholder="123 ABC Street">
-                </mat-form-field>
-              </div> 
-              <div div fxFlex="33" class="sec2" fxFlex.xs="28">
-                <mat-form-field class="full-width" appearance="legacy">
-                <mat-label>State</mat-label>
-                  <input matInput maxlength="10" placeholder="123 ABC Street">
-                </mat-form-field>
-              </div> 
-              <div fxFlex="33" class="sec2" fxFlex.xs="28">
-                <mat-form-field class="full-width" appearance="legacy">
-                <mat-label>Zip</mat-label>
-                  <input matInput maxlength="10" placeholder="123 ABC Street">
-                </mat-form-field>
-              </div> 
-            </div>
-            </form>
-
-            <div>
-              <button mat-stroked-button color="primary" matStepperNext>Next</button>
-            </div>
-          </mat-step>
-
-          <mat-step [stepControl]="educationForm">
-            <form [formGroup]="educationForm" class="form-container" (ngSubmit)="onSubmit()">
-              <ng-template matStepLabel>Education</ng-template>
-              
-                <div formArrayName="education">
-                  <button mat-stroked-button color="primary" style="margin-bottom: 5%;" (click)="addEdu()">Add More</button>
-                
-                  <div *ngFor="let education of edu().controls; let i=index" [formGroupName]="i">
-                    <div fxLayout="row">
-                      <button mat-stroked-button color="warn" style="margin-bottom: 5%;" (click)="removeEdu(i)">Remove</button>
-                    </div>
-
-                    <div fxLayout="row">
-                      <mat-form-field style="width: 98%;" appearance="legacy">
-                        <mat-label>School Name</mat-label>
-                        <input matInput formControlName="schoolName" maxlength="10" placeholder="Ex. John">
-                      </mat-form-field>
-                    </div>
-
-                    <div fxLayout="row" fxLayout.xs="column">
-                        <mat-form-field style="width: 98%" appearance="fill">
-                          <mat-label>Enter a date range</mat-label>
-                          <mat-date-range-input [rangePicker]="picker">
-                            <input matStartDate formControlName="start" placeholder="Start date">
-                            <input matEndDate formControlName="end" placeholder="End date">
-                          </mat-date-range-input>
-                          <mat-hint>MM/DD/YYYY – MM/DD/YYYY</mat-hint>
-                          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                          <mat-date-range-picker #picker></mat-date-range-picker>
-                        </mat-form-field>
-                    </div>
+  <mat-tab label="Tables">
+    <mat-card>
+      
+      <table *ngIf="employee" class="table table-bordered">
+        <tr>
+          <td class="table-responsive">
+            <table class="table">
+              <tbody>
+                <tr>
+                  <td colspan="3">
+                    <h5 style="text-align:center; font-weight: bold;">
+                      {{employee.name}}
+                    </h5>
+                  </td>
+                </tr>
+                <tr>
+                  <td></td>
+                  <td style="text-align: center;">
+                    Internal ID: {{employee.employeeID}}
+                  </td>
+                  <!-- <td style="width: auto;"></td> -->
+                  <td style="text-align: center;">
+                    TaxpayerID: {{employee.taxpayer_id}}
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    Date Hired: {{employee.date_hired}}
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    Department: {{employee.department}}
+                  </td>
+                  <td></td>
+                  <td>
+                    Address: {{employee.address}}
+                    {{employee.city}}
+                    {{employee.state}}
+                    {{employee.zip}}
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    Supervisor: {{employee.supervisor}}
+                  </td>
+                  <td></td>
+                  <td>
+                    Home Phone: {{employee.phone}}
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            <br>
+          </td>
+        </tr>
+        <tr>
+          <td class="table-responsive-lg">
+            <h5>Education</h5>
+            <table class="table table-striped table-hover">
+              <thead class="thead-dark">
+                <tr style="background-color:lightyellow">
+                  <th scope="col">School</th>
+                  <th scope="col">Start Date</th>
+                  <th scope="col">End Date</th>
+                  <th scope="col">Degree</th>
+                  <th scope="col">GPA</th>
+                </tr>
+              </thead>
+      
+              <tbody>
+                <ng-container *ngFor="let degree of education;">
+                  <tr>
+                    <td>{{degree.school_name}}</td>
+                    <td>{{degree.startDate}}</td>
+                    <td>{{degree.endDate}}</td>
+                    <td>{{degree.degree_name}}</td>
+                    <td>{{degree.GPA}}</td>
+                  </tr>
+                </ng-container>
+              </tbody>
+            </table>
+            <br>
+          </td>
+        </tr>
+        <tr>
+          <td class="table-responsive-lg">
+            <h5>Drug Tests</h5>
+            <table class="table table-striped table-hover">
+              <thead class="thead-dark">
+                <tr style="background-color:lightyellow">
+                  <th scope="col">#</th>
+                  <th scope="col">Date</th>
+                  <th scope="col">Lab Used</th>
+                  <th scope="col">Test Used</th>
+                  <th scope="col">Lab Test ID</th>
+                  <th scope="col">Results</th>
+                  <th scope="col">Comments</th>
+                </tr>
+              </thead>
         
-                    <div fxLayout="row" fxLayout.xs="column">
-                      <div div fxFlex="55" class="sec1" fxFlex.xs="50" fxFlexFill>
-                        <mat-form-field class="full-width" appearance="legacy">
-                          <mat-label>Internal ID</mat-label>
-                          <input matInput formControlName="degree" maxlength="10" placeholder="Ex. John">
+              <tbody>
+                <ng-container *ngFor="let drug_test of drug; index as i;">
+                  <tr>
+                    <td>{{i + 1}}</td>
+                    <td>{{drug_test.date}}</td>
+                    <td>{{drug_test.lab_used}}</td>
+                    <td>{{drug_test.test_used}}</td>
+                    <td>{{drug_test.labTestID}}</td>
+                    <td>{{drug_test.results}}</td>
+                    <td>{{drug_test.comments}}</td>
+                  </tr>
+                </ng-container>
+              </tbody>
+            </table>
+            <br>
+          </td>
+        </tr>
+      </table>
+
+    </mat-card>
+  </mat-tab>
+
+  <mat-tab (click)="isAddMode = true" label="Create Employee">
+    <mat-card *ngIf="isAddMode" style="margin-left: 2%; margin-right: 2%;">
+        <mat-card-header>
+          <mat-card-title>Employee Form</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+
+          <mat-stepper orientation="vertical" [linear]="false" #stepper>
+            <mat-step [stepControl]="employeeForm">
+              <form [formGroup]="employeeForm" (ngSubmit)="onSubmit()">
+                <ng-template matStepLabel>Employee Information</ng-template>
+                <div fxLayout="row">
+                  <mat-form-field style="width: 98%;" appearance="legacy">
+                    <mat-label>Name</mat-label>
+                    <input matInput formControlName="name" maxlength="10" placeholder="Ex. John Doe">
+                  </mat-form-field>
+                </div>
+
+                <div fxLayout="row" fxLayout.xs="column">
+                  <div div fxFlex="55" class="sec1" fxFlex.xs="50" fxFlexFill>
+                    <mat-form-field class="full-width" appearance="legacy">
+                      <mat-label>Supervisor</mat-label>
+                      <input matInput formControlName="supervisor" maxlength="10" placeholder="John Wayne">
+                    </mat-form-field>
+                  </div>
+                  <div div fxFlex="55" class="sec2" fxFlex.xs="50">
+                    <mat-form-field class="full-width" appearance="legacy">
+                      <mat-label>Department</mat-label>
+                      <input matInput formControlName="department" maxlength="10" placeholder="Electronics">
+                    </mat-form-field>
+                  </div>
+                </div>
+                
+                <div fxLayout="row">
+                  <mat-form-field style="width: 98%" appearance="fill">
+                      <mat-label>Date Hired</mat-label>
+                      <input formControlName="date_hired" matInput [matDatepicker]="picker">
+                      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                      <mat-datepicker #picker></mat-datepicker>
+                    </mat-form-field>
+                </div>
+
+                <div fxLayout="row" fxLayout.xs="column">
+                  <div div fxFlex="55" class="sec1" fxFlex.xs="25" fxFlexFill>
+                    <mat-form-field class="full-width" appearance="legacy">
+                      <mat-label>Address</mat-label>
+                      <input formControlName="address" matInput maxlength="10" placeholder="123 ABC Street">
+                    </mat-form-field>
+                  </div>
+                  <div div fxFlex="55" class="sec2" fxFlex.xs="25">
+                    <mat-form-field class="full-width" appearance="legacy">
+                      <mat-label>Phone #</mat-label>
+                      <input matInput formControlName="phone" maxlength="10" placeholder="1234567890">
+                    </mat-form-field>
+                  </div>
+                </div>
+
+                <div fxLayout="row" fxLayoutAlign="center center">
+                  <div div fxFlex="33" class="sec2" fxFlex.xs="28">
+                    <mat-form-field class="full-width" appearance="legacy">
+                    <mat-label>City</mat-label>
+                      <input matInput formControlName="city" maxlength="10" placeholder="Fullerton">
+                    </mat-form-field>
+                  </div> 
+                  <div div fxFlex="33" class="sec2" fxFlex.xs="28">
+                    <mat-form-field class="full-width" appearance="legacy">
+                    <mat-label>State</mat-label>
+                      <input matInput formControlName="state" maxlength="10" placeholder="CA">
+                    </mat-form-field>
+                  </div> 
+                  <div fxFlex="33" class="sec2" fxFlex.xs="28">
+                    <mat-form-field class="full-width" appearance="legacy">
+                    <mat-label>Zip</mat-label>
+                      <input matInput formControlName="zip" maxlength="10" placeholder="12345">
+                    </mat-form-field>
+                  </div> 
+                </div>
+                </form>
+
+                <div>
+                  <button mat-stroked-button color="primary" matStepperNext>Next</button>
+                </div>
+              </mat-step>
+
+              <mat-step [stepControl]="educationForm">
+                <form [formGroup]="educationForm" class="form-container" (ngSubmit)="onSubmit()">
+                  <ng-template matStepLabel>Education</ng-template>
+                  
+                    <div formArrayName="education">
+                      <button mat-stroked-button color="primary" style="margin-bottom: 1%;" (click)="addEdu()">Add More</button>
+                    
+                      <div *ngFor="let education of edu().controls; let i=index" [formGroupName]="i">
+                        <div fxLayout="row">
+                          <button mat-stroked-button color="warn" style="margin-bottom: 1%;" (click)="removeEdu(i)">Remove</button>
+                        </div>
+
+                        <div fxLayout="row">
+                          <mat-form-field style="width: 98%;" appearance="legacy">
+                            <mat-label>School Name</mat-label>
+                            <input matInput formControlName="school_name" maxlength="10" placeholder="CSU Fullerton">
+                          </mat-form-field>
+                        </div>
+
+                        <div fxLayout="row" fxLayout.xs="column">
+                            <mat-form-field style="width: 98%" appearance="fill">
+                              <mat-label>Enter a date range</mat-label>
+                              <mat-date-range-input [rangePicker]="picker">
+                                <input matStartDate formControlName="startDate" placeholder="Start date">
+                                <input matEndDate formControlName="endDate" placeholder="End date">
+                              </mat-date-range-input>
+                              <mat-hint>MM/DD/YYYY – MM/DD/YYYY</mat-hint>
+                              <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                              <mat-date-range-picker #picker></mat-date-range-picker>
+                            </mat-form-field>
+                        </div>
+            
+                        <div fxLayout="row" fxLayout.xs="column">
+                          <div div fxFlex="55" class="sec1" fxFlex.xs="50" fxFlexFill>
+                            <mat-form-field class="full-width" appearance="legacy">
+                              <mat-label>Degree</mat-label>
+                              <input matInput formControlName="degree_name" maxlength="10" placeholder="Computer Science">
+                            </mat-form-field>
+                          </div>
+                          <div div fxFlex="55" class="sec2" fxFlex.xs="50">
+                            <mat-form-field class="full-width" appearance="legacy">
+                              <mat-label>GPA</mat-label>
+                              <input matInput formControlName="GPA" maxlength="5" placeholder="4.0">
+                            </mat-form-field>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  
+
+                  <button mat-stroked-button color="primary" matStepperPrevious>Back</button>
+                  <span style="padding-right: 2%;"></span>
+                  <button mat-raised-button color="warn" type="submit">Submit</button>
+                </form>
+              </mat-step>
+
+            </mat-stepper>
+        </mat-card-content>
+    </mat-card>
+  </mat-tab>
+
+  <mat-tab label="Update">
+    <mat-card  *ngIf="!isAddMode" style="margin-left: 2%; margin-right: 2%;">
+      <mat-card-header>
+        <mat-card-title>Employee Form</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+
+        <mat-stepper orientation="vertical" [linear]="false" #stepper>
+          <mat-step [stepControl]="employeeForm">
+            <form [formGroup]="employeeForm" (ngSubmit)="onSubmit()">
+              <ng-template matStepLabel>Employee Information</ng-template>
+              <div fxLayout="row">
+                <mat-form-field style="width: 98%;" appearance="legacy">
+                  <mat-label>Name</mat-label>
+                  <input matInput formControlName="name" maxlength="10" placeholder="Ex. John Doe">
+                </mat-form-field>
+              </div>
+
+              <div fxLayout="row" fxLayout.xs="column">
+                <div div fxFlex="55" class="sec1" fxFlex.xs="50" fxFlexFill>
+                  <mat-form-field class="full-width" appearance="legacy">
+                    <mat-label>Supervisor</mat-label>
+                    <input matInput formControlName="supervisor" maxlength="10" placeholder="John Wayne">
+                  </mat-form-field>
+                </div>
+                <div div fxFlex="55" class="sec2" fxFlex.xs="50">
+                  <mat-form-field class="full-width" appearance="legacy">
+                    <mat-label>Department</mat-label>
+                    <input matInput formControlName="department" maxlength="10" placeholder="Electronics">
+                  </mat-form-field>
+                </div>
+              </div>
+              
+              <div fxLayout="row">
+                <mat-form-field style="width: 98%" appearance="fill">
+                    <mat-label>Date Hired</mat-label>
+                    <input formControlName="date_hired" matInput [matDatepicker]="picker">
+                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-datepicker #picker></mat-datepicker>
+                  </mat-form-field>
+              </div>
+
+              <div fxLayout="row" fxLayout.xs="column">
+                <div div fxFlex="55" class="sec1" fxFlex.xs="25" fxFlexFill>
+                  <mat-form-field class="full-width" appearance="legacy">
+                    <mat-label>Address</mat-label>
+                    <input formControlName="address" matInput maxlength="10" placeholder="123 ABC Street">
+                  </mat-form-field>
+                </div>
+                <div div fxFlex="55" class="sec2" fxFlex.xs="25">
+                  <mat-form-field class="full-width" appearance="legacy">
+                    <mat-label>Phone #</mat-label>
+                    <input matInput formControlName="phone" maxlength="10" placeholder="1234567890">
+                  </mat-form-field>
+                </div>
+              </div>
+
+              <div fxLayout="row" fxLayoutAlign="center center">
+                <div div fxFlex="33" class="sec2" fxFlex.xs="28">
+                  <mat-form-field class="full-width" appearance="legacy">
+                  <mat-label>City</mat-label>
+                    <input matInput formControlName="city" maxlength="10" placeholder="Fullerton">
+                  </mat-form-field>
+                </div> 
+                <div div fxFlex="33" class="sec2" fxFlex.xs="28">
+                  <mat-form-field class="full-width" appearance="legacy">
+                  <mat-label>State</mat-label>
+                    <input matInput formControlName="state" maxlength="10" placeholder="CA">
+                  </mat-form-field>
+                </div> 
+                <div fxFlex="33" class="sec2" fxFlex.xs="28">
+                  <mat-form-field class="full-width" appearance="legacy">
+                  <mat-label>Zip</mat-label>
+                    <input matInput formControlName="zip" maxlength="10" placeholder="12345">
+                  </mat-form-field>
+                </div> 
+              </div>
+              </form>
+
+              <div>
+                <button mat-stroked-button color="primary" matStepperNext>Next</button>
+              </div>
+            </mat-step>
+
+            <mat-step [stepControl]="educationForm">
+              <form [formGroup]="educationForm" class="form-container" (ngSubmit)="onSubmit()">
+                <ng-template matStepLabel>Education</ng-template>
+                
+                  <div formArrayName="education">
+                    <button mat-stroked-button color="primary" style="margin-bottom: 1%;" (click)="addEdu()">Add More</button>
+                  
+                    <div *ngFor="let education of edu().controls; let i=index" [formGroupName]="i">
+                      <div fxLayout="row">
+                        <button mat-stroked-button color="warn" style="margin-bottom: 1%;" (click)="removeEdu(i)">Remove</button>
+                      </div>
+
+                      <div fxLayout="row">
+                        <mat-form-field style="width: 98%;" appearance="legacy">
+                          <mat-label>School Name</mat-label>
+                          <input matInput formControlName="school_name" maxlength="10" placeholder="CSU Fullerton">
                         </mat-form-field>
                       </div>
-                      <div div fxFlex="55" class="sec2" fxFlex.xs="50">
-                        <mat-form-field class="full-width" appearance="legacy">
-                          <mat-label>Taxpayer ID</mat-label>
-                          <input matInput formControlName="gpa" maxlength="5" placeholder="4.0">
-                        </mat-form-field>
+
+                      <div fxLayout="row" fxLayout.xs="column">
+                          <mat-form-field style="width: 98%" appearance="fill">
+                            <mat-label>Enter a date range</mat-label>
+                            <mat-date-range-input [rangePicker]="picker">
+                              <input matStartDate formControlName="startDate" placeholder="Start date">
+                              <input matEndDate formControlName="endDate" placeholder="End date">
+                            </mat-date-range-input>
+                            <mat-hint>MM/DD/YYYY – MM/DD/YYYY</mat-hint>
+                            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                            <mat-date-range-picker #picker></mat-date-range-picker>
+                          </mat-form-field>
+                      </div>
+          
+                      <div fxLayout="row" fxLayout.xs="column">
+                        <div div fxFlex="55" class="sec1" fxFlex.xs="50" fxFlexFill>
+                          <mat-form-field class="full-width" appearance="legacy">
+                            <mat-label>Degree</mat-label>
+                            <input matInput formControlName="degree_name" maxlength="10" placeholder="Computer Science">
+                          </mat-form-field>
+                        </div>
+                        <div div fxFlex="55" class="sec2" fxFlex.xs="50">
+                          <mat-form-field class="full-width" appearance="legacy">
+                            <mat-label>GPA</mat-label>
+                            <input matInput formControlName="GPA" maxlength="5" placeholder="4.0">
+                          </mat-form-field>
+                        </div>
                       </div>
                     </div>
                   </div>
-                </div>
-              
+                
 
-              <button mat-stroked-button color="primary" matStepperPrevious>Back</button>
-              <span style="padding-right: 2%;"></span>
-              <button mat-raised-button color="warn" type="submit">Submit</button>
-            </form>
-          </mat-step>
+                <button mat-stroked-button color="primary" matStepperPrevious>Back</button>
+                <span style="padding-right: 2%;"></span>
+                <button mat-raised-button color="warn" type="submit">Submit</button>
+              </form>
+            </mat-step>
 
-        </mat-stepper>
-    </mat-card-content>
-</mat-card>
+          </mat-stepper>
+      </mat-card-content>
+  </mat-card>
+  </mat-tab>
+
+</mat-tab-group>
 
 
 <!-- 
