@@ -27,7 +27,7 @@ import { DatePipe } from '@angular/common';
     NgMaterialModule,
     HttpClientModule,
     RouterModule.forRoot([
-      { path: '', component: HomeComponent },
+      { path: '', component: ProductListComponent },
     ]),
     BrowserAnimationsModule,
     AppRoutingModule

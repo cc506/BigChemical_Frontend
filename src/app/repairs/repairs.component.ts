@@ -13,28 +13,35 @@ export class RepairsComponent implements OnInit {
   sensor_repairs: any;
 
   constructor(private hs: HttpService, private router: Router, private fb: FormBuilder) { }
-  employeeForm!: FormGroup
+  repairForm!: FormGroup
+  sensor_ID: any
 
   ngOnInit(): void {
-    this.hs.getSensorRepairs('202').subscribe(
+      this.repairForm= this.fb.group({
+        sensorID: [null, [Validators.required]],
+        technicianID: [null, [Validators.required]],
+        dateDown: [null, [Validators.required]],
+        dateRestored: [null, [Validators.required]],
+        cause: [null, [Validators.required]],
+        repair: [null, [Validators.required]],
+      });
+  }
+
+  searchRepair(form_data: any){
+    console.log(form_data)
+    this.hs.getSensorRepairs('201').subscribe(
       data => {
         // console.log(data);
         this.data = data;
         this.sensor_repairs = this.data.sensor_repairs;
         console.log(this.data);
-      }
-    );
-
-      this.employeeForm= this.fb.group({
-        sensorID: [this.hs.getEmployeeID()],
-        doorID: [null, [Validators.required, Validators.minLength(10)]],
-        sensor_type: [null, [Validators.required, Validators.minLength(10)]],
-        date_installed: [null, [Validators.required]],
       });
   }
 
   onSubmit() {
-    console.log(this.employeeForm.value);
+    console.log(this.repairForm.value);
+
+    this.hs.createSensorRepair(this.repairForm.value)
   }
 
   goToLoginPage(){

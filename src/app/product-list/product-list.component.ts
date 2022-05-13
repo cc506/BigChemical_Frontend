@@ -12,6 +12,7 @@ import { HttpService } from '../services/http.service';
 export class ProductListComponent implements OnInit {
   employeeForm!: FormGroup;
   educationForm!: FormGroup;
+  drugForm!: FormGroup;
   public isAddMode!: boolean;
 
   employee: any;
@@ -66,6 +67,16 @@ export class ProductListComponent implements OnInit {
 
     this.educationForm = this.fb.group({
       degrees: this.fb.array([]),
+    });
+
+    this.drugForm = this.fb.group({
+      employeeID: [this.employeeForm.value['employeeID']],
+      date: [null, [Validators.required]],
+      lab_used: [null, [Validators.required]],
+      test_used: [null, [Validators.required]],
+      labTestID: [null, [Validators.required]],
+      results: [null, [Validators.required]],
+      comments: [null, [Validators.required]],
     });
 
     // if (!this.isAddMode) {
@@ -124,7 +135,6 @@ export class ProductListComponent implements OnInit {
         "dob": "04-30-1972",
         "deleted": true
       }
-      console.log(employee)
 
       let addr = {
         address: "123 Alton Drive",
@@ -145,15 +155,22 @@ export class ProductListComponent implements OnInit {
       //   }
       // ]
 
-      // let medicine = [{
-      //   "employeeID": this.employeeForm.value['employeeID'],
-      //   "date":
-      //   }
-      // ]
-    
-      this.hs.createEmployee(employee['employeeID'], employee, addr, edu).subscribe(
+      let medicine = {
+        "employeeID": this.employeeForm.value['employeeID'],
+        "date": this.transformDate(this.drugForm.value['date']),
+        "lab_used": this.drugForm.value['lab_used'],
+        "test_used": this.drugForm.value['test_used'],
+        "labTestID": this.drugForm.value['labTestID'],
+        "results": this.drugForm.value['results'],
+        "comments": this.drugForm.value['comments'],
+      }
+      
 
-      );
+      console.log(medicine)
+      console.log(employee['employeeID'])
+    
+      this.hs.createDrugs(employee['employeeID'], medicine).subscribe();
+      this.hs.createEmployee(employee['employeeID'], employee, addr, edu).subscribe();
 
    
   }

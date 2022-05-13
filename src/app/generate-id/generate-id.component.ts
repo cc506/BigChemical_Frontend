@@ -21,12 +21,11 @@ export class GenerateIdComponent implements OnInit {
 
   employeeID(id: string){
     this.hs.getEmployees(id).subscribe((res) =>{
-      console.log(res['employee_info'])
-      if(res['employee_info'] === null){
+      if(res['employee_info'] === 404){
         alert(`EmployeeID ${id} does not exist. Please Try Again`)
       } else {
         this.hs.setEmployeeID(id);
-        this.router.navigateByUrl('/home');
+        this.router.navigateByUrl('/employee');
       }
     }, (err) => {
       alert('Error sending login request. Please try again.')

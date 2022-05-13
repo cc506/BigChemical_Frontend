@@ -22,6 +22,15 @@
 <mat-tab-group style="margin: auto;">
   <mat-tab label="Tables">
     <mat-card>
+      <form #form="ngForm" (ngSubmit)="searchRepair(form)">
+        <mat-form-field class="full-width" appearance="legacy">
+          <mat-label>sensorID</mat-label>
+          <input matInput ngModel name="id" #first="ngModel">
+        </mat-form-field>
+        <br>
+        <button mat-raised-button type="submit">Search</button>
+      </form>
+
       <ng-container *ngIf="sensor_repairs">
         <table class="table table-striped table-hover">
           <thead class="thead-dark">
@@ -59,42 +68,55 @@
         <mat-card-title>Sensors Form</mat-card-title>
       </mat-card-header>
       <mat-card-content>
-        <form [formGroup]="employeeForm" (ngSubmit)="onSubmit()">
-          <ng-template matStepLabel>Employee Information</ng-template>
+        <form [formGroup]="repairForm" class="form-container" (ngSubmit)="onSubmit()">
+          <ng-template matStepLabel>Drug Tests</ng-template>
 
           <div fxLayout="row" fxLayout.xs="column">
-            <div div fxFlex="70" class="sec1" fxFlex.xs="50" fxFlexFill>
+            <div div fxFlex="55" class="sec1" fxFlex.xs="50" fxFlexFill>
               <mat-form-field class="full-width" appearance="legacy">
-                <mat-label>Sensor ID</mat-label>
-                <input matInput formControlName="sensorID"  placeholder="John Wayne">
+                <mat-label>sensorID</mat-label>
+                <input matInput formControlName="sensorID">
               </mat-form-field>
             </div>
-            <div div fxFlex="70" class="sec2" fxFlex.xs="50">
+            <div div fxFlex="55" class="sec2" fxFlex.xs="50">
               <mat-form-field class="full-width" appearance="legacy">
-                <mat-label>doorID</mat-label>
-                <input matInput formControlName="doorID"  placeholder="Electronics">
+                <mat-label>Technician ID</mat-label>
+                <input matInput formControlName="technicianID">
               </mat-form-field>
             </div>
           </div>
 
           <div fxLayout="row" fxLayout.xs="column">
-            <div div fxFlex="55" class="sec1" fxFlex.xs="25" fxFlexFill>
-              <mat-form-field class="full-width" appearance="legacy">
-                <mat-label>Sensor Type</mat-label>
-                <input formControlName="sensor_type" matInput  placeholder="123 ABC Street">
-              </mat-form-field>
-            </div>
-            <div div fxFlex="55" class="sec2" fxFlex.xs="25">
               <mat-form-field style="width: 98%" appearance="fill">
-                <mat-label>Date Installed</mat-label>
-                <input formControlName="date_installed" matInput [matDatepicker]="picker">
-                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                <mat-datepicker #picker></mat-datepicker>
+                <mat-label>Enter a date range</mat-label>
+                <mat-date-range-input [rangePicker]="edupicker">
+                  <input matStartDate formControlName="dateDown" placeholder="Start date">
+                  <input matEndDate formControlName="dateRestored" placeholder="End date">
+                </mat-date-range-input>
+                <mat-hint>MM/DD/YYYY – MM/DD/YYYY</mat-hint>
+                <mat-datepicker-toggle matSuffix [for]="edupicker"></mat-datepicker-toggle>
+                <mat-date-range-picker #edupicker></mat-date-range-picker>
+              </mat-form-field>
+          </div>
+
+
+          <div fxLayout="row" fxLayout.xs="column">
+            <div div fxFlex="55" class="sec1" fxFlex.xs="50" fxFlexFill>
+              <mat-form-field class="full-width" appearance="legacy">
+                <mat-label>Cause</mat-label>
+                <input matInput formControlName="cause">
+              </mat-form-field>
+            </div>
+            <div div fxFlex="55" class="sec2" fxFlex.xs="50">
+              <mat-form-field class="full-width" appearance="legacy">
+                <mat-label>Repair(s) done</mat-label>
+                <input matInput formControlName="repair">
               </mat-form-field>
             </div>
           </div>
 
-          </form>
+        <button mat-raised-button color="warn" type="submit">Submit</button>
+        </form>
 
       </mat-card-content>
     </mat-card>

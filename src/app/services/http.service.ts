@@ -49,9 +49,8 @@ export class HttpService {
     return this.http.get(`${environment.url}/employees/${id}/drug-test-results/`);
   }
 
-  createDrugs(id:string, employee: string, address: string, education: string): Observable<any> {
-    return this.http.post(`${environment.url}/employees/${id}`, {
-      'employee': employee, 'address': address, 'education': education });
+  createDrugs(id:string, drugForm: any): Observable<any> {
+    return this.http.post(`${environment.url}/employees/${id}/drug-test-results`, drugForm);
   }
 
   updateDrugs(id: string, employee: string, address: string, education: string): Observable<any> {

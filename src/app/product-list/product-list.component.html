@@ -258,13 +258,13 @@
                         <div fxLayout="row" fxLayout.xs="column">
                             <mat-form-field style="width: 98%" appearance="fill">
                               <mat-label>Enter a date range</mat-label>
-                              <mat-date-range-input [rangePicker]="picker">
+                              <mat-date-range-input [rangePicker]="edupicker">
                                 <input matStartDate formControlName="startDate" placeholder="Start date">
                                 <input matEndDate formControlName="endDate" placeholder="End date">
                               </mat-date-range-input>
                               <mat-hint>MM/DD/YYYY – MM/DD/YYYY</mat-hint>
-                              <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                              <mat-date-range-picker #picker></mat-date-range-picker>
+                              <mat-datepicker-toggle matSuffix [for]="edupicker"></mat-datepicker-toggle>
+                              <mat-date-range-picker #edupicker></mat-date-range-picker>
                             </mat-form-field>
                         </div>
             
@@ -288,7 +288,62 @@
 
                   <button mat-stroked-button color="primary" matStepperPrevious>Back</button>
                   <span style="padding-right: 2%;"></span>
-                  <button mat-raised-button color="warn" type="submit">Submit</button>
+                  <button mat-stroked-button color="primary" matStepperNext>Next</button>
+
+                </form>
+              </mat-step>
+
+              <mat-step [stepControl]="drugForm">
+                <form [formGroup]="drugForm" class="form-container" (ngSubmit)="onSubmit()">
+                  <ng-template matStepLabel>Drug Tests</ng-template>
+
+                  <div fxLayout="row" fxLayout.xs="column">
+                    <div div fxFlex="55" class="sec1" fxFlex.xs="50" fxFlexFill>
+                      <mat-form-field style="width: 98%" appearance="fill">
+                        <mat-label>Date</mat-label>
+                        <input formControlName="date" matInput [matDatepicker]="drugpicker">
+                        <mat-datepicker-toggle matSuffix [for]="drugpicker"></mat-datepicker-toggle>
+                        <mat-datepicker #drugpicker></mat-datepicker>
+                      </mat-form-field>
+                    </div>
+                    <div div fxFlex="55" class="sec2" fxFlex.xs="50">
+                      <mat-form-field class="full-width" appearance="legacy">
+                        <mat-label>Lab Name</mat-label>
+                        <input matInput formControlName="lab_used">
+                      </mat-form-field>
+                    </div>
+                  </div>
+
+                  <div fxLayout="row" fxLayout.xs="column">
+                    <div div fxFlex="55" class="sec1" fxFlex.xs="50" fxFlexFill>
+                      <mat-form-field class="full-width" appearance="legacy">
+                        <mat-label>Test Used</mat-label>
+                        <input matInput formControlName="test_used">
+                      </mat-form-field>
+                    </div>
+                    <div div fxFlex="55" class="sec2" fxFlex.xs="50">
+                      <mat-form-field class="full-width" appearance="legacy">
+                        <mat-label>Lab Test ID</mat-label>
+                        <input matInput formControlName="labTestID">
+                      </mat-form-field>
+                    </div>
+                  </div>
+
+                  <div fxLayout="row" fxLayout.xs="column">
+                    <div div fxFlex="55" class="sec1" fxFlex.xs="50" fxFlexFill>
+                      <mat-slide-toggle formControlName="results">Results</mat-slide-toggle>
+                    </div>
+                    <div div fxFlex="55" class="sec2" fxFlex.xs="50">
+                      <mat-form-field class="full-width" appearance="legacy">
+                        <mat-label>Comments</mat-label>
+                        <input matInput formControlName="comments">
+                      </mat-form-field>
+                    </div>
+                  </div>
+
+                <button mat-stroked-button color="primary" matStepperPrevious>Back</button>
+                <span style="padding-right: 2%;"></span>
+                <button mat-raised-button color="warn" type="submit">Submit</button>
                 </form>
               </mat-step>
 
@@ -430,6 +485,60 @@
                     </div>
                   </div>
                 
+
+                  <button mat-stroked-button color="primary" matStepperPrevious>Back</button>
+                  <span style="padding-right: 2%;"></span>
+                  <button mat-stroked-button color="primary" matStepperNext>Next</button>
+              </form>
+            </mat-step>
+
+            <mat-step [stepControl]="drugForm">
+              <form [formGroup]="drugForm" class="form-container" (ngSubmit)="onSubmit()">
+                <ng-template matStepLabel>Drug Tests</ng-template>
+
+                <div fxLayout="row" fxLayout.xs="column">
+                  <div div fxFlex="55" class="sec1" fxFlex.xs="50" fxFlexFill>
+                    <mat-form-field style="width: 98%" appearance="fill">
+                      <mat-label>Date</mat-label>
+                      <input formControlName="date" matInput [matDatepicker]="picker">
+                      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                      <mat-datepicker #picker></mat-datepicker>
+                    </mat-form-field>
+                  </div>
+                  <div div fxFlex="55" class="sec2" fxFlex.xs="50">
+                    <mat-form-field class="full-width" appearance="legacy">
+                      <mat-label>Lab Name</mat-label>
+                      <input matInput formControlName="lab_used"  placeholder="Electronics">
+                    </mat-form-field>
+                  </div>
+                </div>
+
+                <div fxLayout="row" fxLayout.xs="column">
+                  <div div fxFlex="55" class="sec1" fxFlex.xs="50" fxFlexFill>
+                    <mat-form-field class="full-width" appearance="legacy">
+                      <mat-label>Test Used</mat-label>
+                      <input matInput formControlName="test_used"  placeholder="Ex. John Doe">
+                    </mat-form-field>
+                  </div>
+                  <div div fxFlex="55" class="sec2" fxFlex.xs="50">
+                    <mat-form-field class="full-width" appearance="legacy">
+                      <mat-label>Lab Test ID</mat-label>
+                      <input matInput formControlName="labTestID"  placeholder="Electronics">
+                    </mat-form-field>
+                  </div>
+                </div>
+
+                <div fxLayout="row" fxLayout.xs="column">
+                  <div div fxFlex="55" class="sec1" fxFlex.xs="50" fxFlexFill>
+                    <mat-slide-toggle formControlName="results">Results</mat-slide-toggle>
+                  </div>
+                  <div div fxFlex="55" class="sec2" fxFlex.xs="50">
+                    <mat-form-field class="full-width" appearance="legacy">
+                      <mat-label>Comments</mat-label>
+                      <input matInput formControlName="comments"  placeholder="Electronics">
+                    </mat-form-field>
+                  </div>
+                </div>
 
                 <button mat-stroked-button color="primary" matStepperPrevious>Back</button>
                 <span style="padding-right: 2%;"></span>
