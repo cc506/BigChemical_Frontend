@@ -1,3 +1,4 @@
+import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -12,7 +13,7 @@ export class SensorsComponent implements OnInit {
   sensorForm!: FormGroup;
   sensors: any;
 
-  constructor(private fb: FormBuilder, private hs: HttpService, private router: Router) {
+  constructor(private fb: FormBuilder, private hs: HttpService, private router: Router, private dp: DatePipe) {
     
   }
 
@@ -30,14 +31,18 @@ export class SensorsComponent implements OnInit {
     });
   }
 
+  transformDate(date:any) {
+    return this.dp.transform(date, 'MM-dd-yyyy'); 
+  }
+
   onSubmit() {
     console.log(this.sensorForm.value);
 
     let sensor = {
-      "sensorID": 1,
-      "doorID": 0,
-      "sensor_type": "string",
-      "date_installed": "string"
+      "sensorID": this.sensorForm.value['sensorID'],
+      "doorID": this.sensorForm.value['doorID'],
+      "sensor_type": this.sensorForm.value['sensor_type'],
+      "date_installed": this.transformDate(this.sensorForm.value['date_installed'])
     }
 
     this.hs.createSensor(sensor).subscribe();
