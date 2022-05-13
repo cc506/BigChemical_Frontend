@@ -63,8 +63,16 @@ export class HttpService {
     return this.http.get(`${environment.url}/sensors`);
   }
 
+  createSensor(sensorForm: string): Observable<any> {
+    return this.http.post(`${environment.url}/sensors`, { sensorForm })
+  }
+
   getSensorRepairs(id: string){
-    return this.http.get(`${environment.url}/sensors-repairs/${id}`);
+    return this.http.get(`${environment.url}/sensor-repairs/${id}`);
+  }
+
+  createSensorRepair(sensorForm: string): Observable<any> {
+    return this.http.post(`${environment.url}/sensor-repairs`, { sensorForm })
   }
 
   getEmployeeAccess(id: number, startDate: string, endDate: string): Observable<any> {

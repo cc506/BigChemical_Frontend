@@ -55,10 +55,53 @@
       </ng-container>
     </mat-card>
   </mat-tab>
-  <mat-tab label="Track Sensor">
+  <mat-tab label="Update Sensor">
 
   </mat-tab>
   <mat-tab label="Add Sensor">
+    <mat-card style="margin-left: 2%; margin-right: 2%;">
+      <mat-card-header>
+        <mat-card-title>Sensors Form</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <form [formGroup]="employeeForm" (ngSubmit)="onSubmit()">
+          <ng-template matStepLabel>Employee Information</ng-template>
 
+          <div fxLayout="row" fxLayout.xs="column">
+            <div div fxFlex="70" class="sec1" fxFlex.xs="50" fxFlexFill>
+              <mat-form-field class="full-width" appearance="legacy">
+                <mat-label>Sensor ID</mat-label>
+                <input matInput formControlName="sensorID" maxlength="10" placeholder="John Wayne">
+              </mat-form-field>
+            </div>
+            <div div fxFlex="70" class="sec2" fxFlex.xs="50">
+              <mat-form-field class="full-width" appearance="legacy">
+                <mat-label>doorID</mat-label>
+                <input matInput formControlName="doorID" maxlength="10" placeholder="Electronics">
+              </mat-form-field>
+            </div>
+          </div>
+
+          <div fxLayout="row" fxLayout.xs="column">
+            <div div fxFlex="55" class="sec1" fxFlex.xs="25" fxFlexFill>
+              <mat-form-field class="full-width" appearance="legacy">
+                <mat-label>Sensor Type</mat-label>
+                <input formControlName="sensor_type" matInput maxlength="10" placeholder="123 ABC Street">
+              </mat-form-field>
+            </div>
+            <div div fxFlex="55" class="sec2" fxFlex.xs="25">
+              <mat-form-field style="width: 98%" appearance="fill">
+                <mat-label>Date Installed</mat-label>
+                <input formControlName="date_installed" matInput [matDatepicker]="picker">
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+              </mat-form-field>
+            </div>
+          </div>
+
+          </form>
+
+      </mat-card-content>
+    </mat-card>
   </mat-tab>
 </mat-tab-group>
