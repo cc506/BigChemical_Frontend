@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { DatePipe } from '@angular/common'
 import { HttpService } from '../services/http.service';
 
 @Component({
@@ -17,7 +18,7 @@ export class ProductListComponent implements OnInit {
   education: any;
   drug: any;
 
-  constructor(private fb: FormBuilder, private hs: HttpService, private router: Router) {
+  constructor(private fb: FormBuilder, private hs: HttpService, private router: Router, private dp: DatePipe) {
     
   }
 
@@ -46,35 +47,39 @@ export class ProductListComponent implements OnInit {
 
   initForms(){
     this.employeeForm= this.fb.group({
-      employeeID: [this.hs.getEmployeeID()],
+      employeeID: [null],
+      supervisorID: [null],
       name: [null, [Validators.required, Validators.minLength(10)]],
-      taxpayer_id: [null, [Validators.required, Validators.minLength(10)]],
-      date_hired: [null, [Validators.required]],
+      title: "string",
       department: [null, [Validators.required]],
+      taxpayer_id: [null, [Validators.required, Validators.minLength(10)]],
+      securityClearance: "string",
+      date_hired: [null, [Validators.required]],
+      phone: [null, [Validators.required]],
+      dob: "string",
+      deleted: true,
       address: [null, [Validators.required]],
       city: [null, [Validators.required]],
       state: [null, [Validators.required]],
-      zip: [null, [Validators.required]],
-      phone: [null, [Validators.required]],
-      supervisor: [null, [Validators.required]],
+      zip: [null, [Validators.required]]
     });
 
     this.educationForm = this.fb.group({
-      education: this.fb.array([]),
+      degrees: this.fb.array([]),
     });
 
-    if (!this.isAddMode) {
-      this.hs.getEmployees(this.hs.getEmployeeID()).subscribe((res) =>{
-        this.employeeForm.patchValue(res['employee_info']);
-        this.educationForm.patchValue(res['employee_education']);
-        console.log(this.isAddMode)
-     })
-  }
+    // if (!this.isAddMode) {
+    //   this.hs.getEmployees(this.hs.getEmployeeID()).subscribe((res) =>{
+    //     this.employeeForm.patchValue(res['employee_info']);
+    //     this.educationForm.patchValue(res['employee_education']);
+    //     console.log(this.isAddMode)
+    //  })
+    // }
   }
 
   newEducation(): FormGroup{
     return this.fb.group({
-      employeeID: [this.hs.getEmployeeID()],
+      employeeID: [this.employeeForm.value['employeeID']],
       degree_name: [null],
       school_name: [null],
       startDate: [null],
@@ -85,7 +90,7 @@ export class ProductListComponent implements OnInit {
 
   edu() : FormArray {
 
-    return this.educationForm.get("education") as FormArray
+    return this.educationForm.get("degrees") as FormArray
   }
 
   addEdu() {
@@ -98,14 +103,57 @@ export class ProductListComponent implements OnInit {
     this.edu().removeAt(i);
   }
 
-  onSubmit() {
-    console.log(this.educationForm.value, this.employeeForm.value);
-    
-    if (this.isAddMode) {
-      this.hs.createEmployee(this.hs.getEmployeeID(),this.educationForm.value, this.employeeForm.value).subscribe();
-  } else {
-      this.hs.updateEmployee(this.hs.getEmployeeID(),this.educationForm.value, this.employeeForm.value).subscribe();
+  transformDate(date:any) {
+    return this.dp.transform(date, 'MM-dd-yyyy'); 
   }
+
+  onSubmit() {
+    console.log(this.educationForm.value);
+    //console.log(this.transformDate("2022-05-13T07:00:00.000Z"))
+
+      let employee = {
+        "employeeID": this.employeeForm.value['employeeID'],
+        "supervisorID": 0,
+        "name": this.employeeForm.value['name'],
+        "title": "Checmical Engineer",
+        "department": this.employeeForm.value['department'],
+        "taxpayer_id": 5,
+        "securityClearance": "3",
+        "date_hired": this.transformDate(this.employeeForm.value['date_hired']),
+        "phone": this.employeeForm.value['phone'],
+        "dob": "04-30-1972",
+        "deleted": true
+      }
+      console.log(employee)
+
+      let addr = {
+        address: "123 Alton Drive",
+        city: "Fullerton",
+        state: "CA",
+        zip: "92831",
+      }
+
+      let edu = this.educationForm.value
+
+      // let edu = [
+      //   {
+      //     "school_name": "CSU Fullerton",
+      //     "startDate": "05-01-2022",
+      //     "endDate": "05-30-2022",
+      //     "degree_name": "MS Chemical Engineering",
+      //     "GPA": 3.5
+      //   }
+      // ]
+
+      // let medicine = [{
+      //   "employeeID": this.employeeForm.value['employeeID'],
+      //   "date":
+      //   }
+      // ]
+    
+      this.hs.createEmployee(employee['employeeID'], employee, addr, edu).subscribe(
+
+      );
 
    
   }

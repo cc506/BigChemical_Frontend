@@ -35,9 +35,9 @@ export class HttpService {
     return this.http.get(`${environment.url}/employees/${id}`);
   }
 
-  createEmployee(id: string, employee: string, education: string): Observable<any> {
+  createEmployee(id: number, employee: any, address: any,  education: any): Observable<any> {
     return this.http.post(`${environment.url}/employees/${id}`, {
-      'employee_info': employee,  'employee_education': education });
+      'employee': employee,  'address': address, 'education': education });
   }
 
   updateEmployee(id: string, employee: string, education: string): Observable<any> {
@@ -63,7 +63,7 @@ export class HttpService {
     return this.http.get(`${environment.url}/sensors`);
   }
 
-  createSensor(sensorForm: string): Observable<any> {
+  createSensor(sensorForm: any): Observable<any> {
     return this.http.post(`${environment.url}/sensors`, { sensorForm })
   }
 
@@ -71,7 +71,7 @@ export class HttpService {
     return this.http.get(`${environment.url}/sensor-repairs/${id}`);
   }
 
-  createSensorRepair(sensorForm: string): Observable<any> {
+  createSensorRepair(sensorForm: any): Observable<any> {
     return this.http.post(`${environment.url}/sensor-repairs`, { sensorForm })
   }
 

@@ -9,7 +9,7 @@ import { HttpService } from '../services/http.service';
   styleUrls: ['./sensors.component.css']
 })
 export class SensorsComponent implements OnInit {
-  employeeForm!: FormGroup;
+  sensorForm!: FormGroup;
   sensors: any;
 
   constructor(private fb: FormBuilder, private hs: HttpService, private router: Router) {
@@ -22,16 +22,25 @@ export class SensorsComponent implements OnInit {
         this.sensors = res['sensors']
     )
 
-    this.employeeForm= this.fb.group({
-      sensorID: [this.hs.getEmployeeID()],
-      doorID: [null, [Validators.required, Validators.minLength(10)]],
-      sensor_type: [null, [Validators.required, Validators.minLength(10)]],
+    this.sensorForm= this.fb.group({
+      sensorID: [null, [Validators.required]],
+      doorID: [null, [Validators.required]],
+      sensor_type: [null, [Validators.required]],
       date_installed: [null, [Validators.required]],
     });
   }
 
   onSubmit() {
-    console.log(this.employeeForm.value);
+    console.log(this.sensorForm.value);
+
+    let sensor = {
+      "sensorID": 1,
+      "doorID": 0,
+      "sensor_type": "string",
+      "date_installed": "string"
+    }
+
+    this.hs.createSensor(sensor).subscribe();
   }
 
   goToLoginPage(){

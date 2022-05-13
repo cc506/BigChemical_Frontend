@@ -65,7 +65,7 @@
                 </tr>
                 <tr>
                   <td>
-                    Supervisor: {{employee.supervisor}}
+                    Supervisor: Eric
                   </td>
                   <td></td>
                   <td>
@@ -144,8 +144,8 @@
     </mat-card>
   </mat-tab>
 
-  <mat-tab (click)="isAddMode = true" label="Create Employee">
-    <mat-card *ngIf="isAddMode" style="margin-left: 2%; margin-right: 2%;">
+  <mat-tab label="Create Employee">
+    <mat-card style="margin-left: 2%; margin-right: 2%;">
         <mat-card-header>
           <mat-card-title>Employee Form</mat-card-title>
         </mat-card-header>
@@ -155,24 +155,32 @@
             <mat-step [stepControl]="employeeForm">
               <form [formGroup]="employeeForm" (ngSubmit)="onSubmit()">
                 <ng-template matStepLabel>Employee Information</ng-template>
-                <div fxLayout="row">
-                  <mat-form-field style="width: 98%;" appearance="legacy">
-                    <mat-label>Name</mat-label>
-                    <input matInput formControlName="name" maxlength="10" placeholder="Ex. John Doe">
-                  </mat-form-field>
+                <div fxLayout="row" fxLayout.xs="column">
+                  <div div fxFlex="55" class="sec1" fxFlex.xs="50" fxFlexFill>
+                    <mat-form-field class="full-width" appearance="legacy">
+                      <mat-label>Name</mat-label>
+                      <input matInput formControlName="name"  placeholder="Ex. John Doe">
+                    </mat-form-field>
+                  </div>
+                  <div div fxFlex="55" class="sec2" fxFlex.xs="50">
+                    <mat-form-field class="full-width" appearance="legacy">
+                      <mat-label>Internal ID</mat-label>
+                      <input matInput formControlName="employeeID"  placeholder="Electronics">
+                    </mat-form-field>
+                  </div>
                 </div>
 
                 <div fxLayout="row" fxLayout.xs="column">
                   <div div fxFlex="55" class="sec1" fxFlex.xs="50" fxFlexFill>
                     <mat-form-field class="full-width" appearance="legacy">
                       <mat-label>Supervisor</mat-label>
-                      <input matInput formControlName="supervisor" maxlength="10" placeholder="John Wayne">
+                      <input matInput formControlName="supervisorID"  placeholder="John Wayne">
                     </mat-form-field>
                   </div>
                   <div div fxFlex="55" class="sec2" fxFlex.xs="50">
                     <mat-form-field class="full-width" appearance="legacy">
                       <mat-label>Department</mat-label>
-                      <input matInput formControlName="department" maxlength="10" placeholder="Electronics">
+                      <input matInput formControlName="department"  placeholder="Electronics">
                     </mat-form-field>
                   </div>
                 </div>
@@ -190,13 +198,13 @@
                   <div div fxFlex="55" class="sec1" fxFlex.xs="25" fxFlexFill>
                     <mat-form-field class="full-width" appearance="legacy">
                       <mat-label>Address</mat-label>
-                      <input formControlName="address" matInput maxlength="10" placeholder="123 ABC Street">
+                      <input formControlName="address" matInput placeholder="123 ABC Street">
                     </mat-form-field>
                   </div>
                   <div div fxFlex="55" class="sec2" fxFlex.xs="25">
                     <mat-form-field class="full-width" appearance="legacy">
                       <mat-label>Phone #</mat-label>
-                      <input matInput formControlName="phone" maxlength="10" placeholder="1234567890">
+                      <input matInput formControlName="phone"  placeholder="1234567890">
                     </mat-form-field>
                   </div>
                 </div>
@@ -205,19 +213,19 @@
                   <div div fxFlex="33" class="sec2" fxFlex.xs="28">
                     <mat-form-field class="full-width" appearance="legacy">
                     <mat-label>City</mat-label>
-                      <input matInput formControlName="city" maxlength="10" placeholder="Fullerton">
+                      <input matInput formControlName="city"  placeholder="Fullerton">
                     </mat-form-field>
                   </div> 
                   <div div fxFlex="33" class="sec2" fxFlex.xs="28">
                     <mat-form-field class="full-width" appearance="legacy">
                     <mat-label>State</mat-label>
-                      <input matInput formControlName="state" maxlength="10" placeholder="CA">
+                      <input matInput formControlName="state"  placeholder="CA">
                     </mat-form-field>
                   </div> 
                   <div fxFlex="33" class="sec2" fxFlex.xs="28">
                     <mat-form-field class="full-width" appearance="legacy">
                     <mat-label>Zip</mat-label>
-                      <input matInput formControlName="zip" maxlength="10" placeholder="12345">
+                      <input matInput formControlName="zip"  placeholder="12345">
                     </mat-form-field>
                   </div> 
                 </div>
@@ -232,7 +240,7 @@
                 <form [formGroup]="educationForm" class="form-container" (ngSubmit)="onSubmit()">
                   <ng-template matStepLabel>Education</ng-template>
                   
-                    <div formArrayName="education">
+                    <div formArrayName="degrees">
                       <button mat-stroked-button color="primary" style="margin-bottom: 1%;" (click)="addEdu()">Add More</button>
                     
                       <div *ngFor="let education of edu().controls; let i=index" [formGroupName]="i">
@@ -243,7 +251,7 @@
                         <div fxLayout="row">
                           <mat-form-field style="width: 98%;" appearance="legacy">
                             <mat-label>School Name</mat-label>
-                            <input matInput formControlName="school_name" maxlength="10" placeholder="CSU Fullerton">
+                            <input matInput formControlName="school_name"  placeholder="CSU Fullerton">
                           </mat-form-field>
                         </div>
 
@@ -264,7 +272,7 @@
                           <div div fxFlex="55" class="sec1" fxFlex.xs="50" fxFlexFill>
                             <mat-form-field class="full-width" appearance="legacy">
                               <mat-label>Degree</mat-label>
-                              <input matInput formControlName="degree_name" maxlength="10" placeholder="Computer Science">
+                              <input matInput formControlName="degree_name"  placeholder="Computer Science">
                             </mat-form-field>
                           </div>
                           <div div fxFlex="55" class="sec2" fxFlex.xs="50">
@@ -290,7 +298,7 @@
   </mat-tab>
 
   <mat-tab label="Update">
-    <mat-card  *ngIf="!isAddMode" style="margin-left: 2%; margin-right: 2%;">
+    <mat-card  *ngIf="isAddMode" style="margin-left: 2%; margin-right: 2%;">
       <mat-card-header>
         <mat-card-title>Employee Form</mat-card-title>
       </mat-card-header>
@@ -303,7 +311,7 @@
               <div fxLayout="row">
                 <mat-form-field style="width: 98%;" appearance="legacy">
                   <mat-label>Name</mat-label>
-                  <input matInput formControlName="name" maxlength="10" placeholder="Ex. John Doe">
+                  <input matInput formControlName="name"  placeholder="Ex. John Doe">
                 </mat-form-field>
               </div>
 
@@ -311,13 +319,13 @@
                 <div div fxFlex="55" class="sec1" fxFlex.xs="50" fxFlexFill>
                   <mat-form-field class="full-width" appearance="legacy">
                     <mat-label>Supervisor</mat-label>
-                    <input matInput formControlName="supervisor" maxlength="10" placeholder="John Wayne">
+                    <input matInput formControlName="supervisor"  placeholder="John Wayne">
                   </mat-form-field>
                 </div>
                 <div div fxFlex="55" class="sec2" fxFlex.xs="50">
                   <mat-form-field class="full-width" appearance="legacy">
                     <mat-label>Department</mat-label>
-                    <input matInput formControlName="department" maxlength="10" placeholder="Electronics">
+                    <input matInput formControlName="department"  placeholder="Electronics">
                   </mat-form-field>
                 </div>
               </div>
@@ -335,13 +343,13 @@
                 <div div fxFlex="55" class="sec1" fxFlex.xs="25" fxFlexFill>
                   <mat-form-field class="full-width" appearance="legacy">
                     <mat-label>Address</mat-label>
-                    <input formControlName="address" matInput maxlength="10" placeholder="123 ABC Street">
+                    <input formControlName="address" matInput  placeholder="123 ABC Street">
                   </mat-form-field>
                 </div>
                 <div div fxFlex="55" class="sec2" fxFlex.xs="25">
                   <mat-form-field class="full-width" appearance="legacy">
                     <mat-label>Phone #</mat-label>
-                    <input matInput formControlName="phone" maxlength="10" placeholder="1234567890">
+                    <input matInput formControlName="phone"  placeholder="1234567890">
                   </mat-form-field>
                 </div>
               </div>
@@ -350,19 +358,19 @@
                 <div div fxFlex="33" class="sec2" fxFlex.xs="28">
                   <mat-form-field class="full-width" appearance="legacy">
                   <mat-label>City</mat-label>
-                    <input matInput formControlName="city" maxlength="10" placeholder="Fullerton">
+                    <input matInput formControlName="city"  placeholder="Fullerton">
                   </mat-form-field>
                 </div> 
                 <div div fxFlex="33" class="sec2" fxFlex.xs="28">
                   <mat-form-field class="full-width" appearance="legacy">
                   <mat-label>State</mat-label>
-                    <input matInput formControlName="state" maxlength="10" placeholder="CA">
+                    <input matInput formControlName="state"  placeholder="CA">
                   </mat-form-field>
                 </div> 
                 <div fxFlex="33" class="sec2" fxFlex.xs="28">
                   <mat-form-field class="full-width" appearance="legacy">
                   <mat-label>Zip</mat-label>
-                    <input matInput formControlName="zip" maxlength="10" placeholder="12345">
+                    <input matInput formControlName="zip"  placeholder="12345">
                   </mat-form-field>
                 </div> 
               </div>
@@ -374,13 +382,13 @@
             </mat-step>
 
             <mat-step [stepControl]="educationForm">
-              <form [formGroup]="educationForm" class="form-container" (ngSubmit)="onSubmit()">
+              <form [formGroup]="educationForm" class="form-container">
                 <ng-template matStepLabel>Education</ng-template>
                 
                   <div formArrayName="education">
                     <button mat-stroked-button color="primary" style="margin-bottom: 1%;" (click)="addEdu()">Add More</button>
                   
-                    <div *ngFor="let education of edu().controls; let i=index" [formGroupName]="i">
+                    <div *ngFor="let education of edu().controls; let i=index" [formGroupName]="i" (ngSubmit)="onSubmit()">
                       <div fxLayout="row">
                         <button mat-stroked-button color="warn" style="margin-bottom: 1%;" (click)="removeEdu(i)">Remove</button>
                       </div>
@@ -388,7 +396,7 @@
                       <div fxLayout="row">
                         <mat-form-field style="width: 98%;" appearance="legacy">
                           <mat-label>School Name</mat-label>
-                          <input matInput formControlName="school_name" maxlength="10" placeholder="CSU Fullerton">
+                          <input matInput formControlName="school_name"  placeholder="CSU Fullerton">
                         </mat-form-field>
                       </div>
 
@@ -409,7 +417,7 @@
                         <div div fxFlex="55" class="sec1" fxFlex.xs="50" fxFlexFill>
                           <mat-form-field class="full-width" appearance="legacy">
                             <mat-label>Degree</mat-label>
-                            <input matInput formControlName="degree_name" maxlength="10" placeholder="Computer Science">
+                            <input matInput formControlName="degree_name"  placeholder="Computer Science">
                           </mat-form-field>
                         </div>
                         <div div fxFlex="55" class="sec2" fxFlex.xs="50">

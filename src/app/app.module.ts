@@ -17,6 +17,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { AccessComponent } from './access/access.component';
 import { AccessRightsComponent } from './access-rights/access-rights.component';
 import { GenerateIdComponent } from './generate-id/generate-id.component';
+import { DatePipe } from '@angular/common';
 
 @NgModule({
   imports: [
@@ -42,6 +43,9 @@ import { GenerateIdComponent } from './generate-id/generate-id.component';
     AccessComponent,
     AccessRightsComponent,
     GenerateIdComponent
+  ],
+  providers:[
+    DatePipe
   ],
   bootstrap: [
     AppComponent
